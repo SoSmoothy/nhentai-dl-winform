@@ -17,19 +17,10 @@ namespace nhentai_dl_winform
     {
         private string media_id;
         private int number_page;
+        private string title;
         public Form1()
         {
             InitializeComponent();
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private async void button1_ClickAsync(object sender, EventArgs e)
@@ -50,6 +41,7 @@ namespace nhentai_dl_winform
                     Request.GetImage($"https://t.nhentai.net/galleries/{result.Media_id}/cover.jpg", pictureBox1);
                     media_id = result.Media_id;
                     number_page = result.Num_pages;
+                    title = result.Title.Pretty;
                     button1.Enabled = true;
                     DownloadBtn.Enabled = true;
                 }
@@ -72,32 +64,39 @@ namespace nhentai_dl_winform
             richTextBox.Text = $"{message}";
         }
 
-        private void textBox1_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
         private async void DownloadBtn_Click(object sender, EventArgs e)
         {
-            progressBar1.Minimum = 0;
-            progressBar1.Maximum = number_page;
-            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
-            if(folderBrowser.ShowDialog() == DialogResult.OK)
+            using (FolderBrowserDialog folder = new FolderBrowserDialog())
             {
-                DownloadBtn.Enabled = false;
-                button1.Enabled = false;
-                for(int i = 0; i < number_page; i++)
+                if(folder.ShowDialog() == DialogResult.OK)
                 {
-                    await Download.DownloadImg($"https://i.nhentai.net/galleries/{media_id}/{i + 1}.jpg", folderBrowser.SelectedPath);
-                    progressBar1.Value++;
-                }
+                    button1.Enabled = false;
+                    DownloadBtn.Enabled = false;
+                    progressBar1.Maximum = number_page;
 
-                button1.Enabled = true;
-                MessageBox.Show($"Manga {media_id} with {number_page} pages\nDone!");
-                progressBar1.Value = 0;
-            } else
+                    for(int i = 1; i <= number_page; i++)
+                    {
+                        using (WebClient client = new WebClient())
+                        {
+                            client.Credentials = CredentialCache.DefaultCredentials;
+                            client.DownloadFileCompleted += Completed;
+                            await client.DownloadFileTaskAsync(new Uri($"https://i.nhentai.net/galleries/{media_id}/{i}.jpg"), $@"{folder.SelectedPath}\{i}.jpg");
+                        }
+                    }
+                    
+                }
+            }
+        }
+
+        private void Completed(object sender, AsyncCompletedEventArgs e)
+        {
+            progressBar1.Value++;
+            if (progressBar1.Value == progressBar1.Maximum)
             {
-                MessageBox.Show("Folder Invaild!");
+                MessageBox.Show("Done!");
+                progressBar1.Value = 0;
+                button1.Enabled = true;
+                DownloadBtn.Enabled = false;
             }
         }
     }

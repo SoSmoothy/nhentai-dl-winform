@@ -58,7 +58,7 @@ namespace nhentai_dl_winform
             this.panel1.Controls.Add(this.IdInput);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(498, 386);
+            this.panel1.Size = new System.Drawing.Size(498, 392);
             this.panel1.TabIndex = 0;
             // 
             // DownloadBtn
@@ -152,7 +152,6 @@ namespace nhentai_dl_winform
             this.label1.Size = new System.Drawing.Size(90, 15);
             this.label1.TabIndex = 1;
             this.label1.Text = "Input URL or ID:";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // IdInput
             // 
@@ -160,13 +159,12 @@ namespace nhentai_dl_winform
             this.IdInput.Name = "IdInput";
             this.IdInput.Size = new System.Drawing.Size(315, 23);
             this.IdInput.TabIndex = 0;
-            this.IdInput.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(522, 410);
+            this.ClientSize = new System.Drawing.Size(522, 409);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
