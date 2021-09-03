@@ -92,12 +92,11 @@ namespace nhentai_dl_winform
             // 
             // logText
             // 
-            this.logText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.logText.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.logText.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.logText.HideSelection = false;
             this.logText.Location = new System.Drawing.Point(7, 22);
             this.logText.Name = "logText";
             this.logText.ReadOnly = true;
-            this.logText.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Horizontal;
             this.logText.Size = new System.Drawing.Size(479, 117);
             this.logText.TabIndex = 0;
             this.logText.Text = "";
@@ -119,7 +118,6 @@ namespace nhentai_dl_winform
             this.richTextBox1.Location = new System.Drawing.Point(150, 22);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Horizontal;
             this.richTextBox1.Size = new System.Drawing.Size(323, 145);
             this.richTextBox1.TabIndex = 1;
             this.richTextBox1.Text = "";
